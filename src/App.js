@@ -1,24 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import logo from './logo.svg';
-import './App.css';
+import Header from './components/Header';
+import Products from './components/Products';
+
+import { BrowserRouter } from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
+import { getCatalog } from './actions';
 
 function App() {
+
+  const dispatch = useDispatch();
+  const store = useSelector(state => state);
+  
+  useEffect(() => {
+    dispatch(getCatalog());
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Header/>
+        <Products/>
+      </BrowserRouter>
     </div>
   );
 }
